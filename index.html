@@ -175,24 +175,24 @@
 
     function checkSlide() {
 
+      // scrollY => 滾軸的頂點座標 
+      let windowTop = window.scrollY;
+      // 視窗下面那條線 ＝ Y座標 + 視窗高度
+      let windowBottom = window.scrollY + window.innerHeight
+     
+
       sliderImages.forEach((sliderImage) => {
-        // 視窗已經滾動到圖片的高度的一半以上
-        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
 
-        // 視窗尚未滾動到圖片的底部
-        const imageBottom = sliderImage.offsetTop + sliderImage.height;
+     // offset=> 每張img距离它的offsetParent元素的top的距離 + Ｆ希望出現位置在圖片的高度一半位置
+        let imgMiddle = sliderImage.offsetTop + sliderImage.height / 2
 
-        const isHalfShown = slideInAt > sliderImage.offsetTop;
-        const isNotScrolledPast = window.scrollY < imageBottom;
-
-        if (isHalfShown && isNotScrolledPast) {
+        // 希望到圖片的一半再出現圖片
+        if (imgMiddle < windowBottom && imgMiddle > windowTop) {
           sliderImage.classList.add('active');
         } else {
           sliderImage.classList.remove('active');
-
         }
       })
-
     }
 
     // 滾動視窗事件，監聽
