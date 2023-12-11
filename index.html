@@ -175,23 +175,36 @@
 
     function checkSlide() {
 
-      // scrollY => 滾軸的頂點座標 
+      // 抓取滾軸的頂點座標 
       let windowTop = window.scrollY;
-      // 視窗下面那條線 ＝ Y座標 + 視窗高度
+      // 抓取視窗底部的座標 ＝ Y座標 + 視窗高度
       let windowBottom = window.scrollY + window.innerHeight
-     
 
+      // 遍歷所有需要檢查的圖片
       sliderImages.forEach((sliderImage) => {
 
-     // offset=> 每張img距离它的offsetParent元素的top的距離 + Ｆ希望出現位置在圖片的高度一半位置
+        /* 抓取圖片頂部到圖片中點的距離
+         offset=> 每張img距离它的offsetParent元素的top的距離
+        */
         let imgMiddle = sliderImage.offsetTop + sliderImage.height / 2
 
-        // 希望到圖片的一半再出現圖片
+        // 檢查圖片是否進入視窗一半的範圍
+        // 圖片的中心點在視窗底部的上方 && 圖片的中心點在視窗頂部的下方
         if (imgMiddle < windowBottom && imgMiddle > windowTop) {
           sliderImage.classList.add('active');
         } else {
           sliderImage.classList.remove('active');
         }
+
+
+        /* 印出相關座標資訊
+          console.log('Window Top:', windowTop);
+          console.log('Window Bottom:', windowBottom);
+          sliderImages.forEach((sliderImage, index) => {
+            let imgMiddle = sliderImage.offsetTop + sliderImage.height / 2;
+            console.log(`Image ${index + 1} Middle:`, imgMiddle);
+          });
+        */
       })
     }
 
